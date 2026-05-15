@@ -1,0 +1,76 @@
+# Netlify configuration for DC Canopy Duct Fan Clean website
+
+# Build configuration
+[build]
+  # No build command needed - this is a static site
+  command = ""
+  # Directory to publish - contains index.html and other static files
+  publish = "."
+
+# Development configuration
+[dev]
+  # Command to start local development server
+  command = "python -m http.server 3000"
+  # Port for the development server
+  port = 3000
+
+# Redirect rules
+[[redirects]]
+  # Keep URLs clean - remove trailing slashes
+  from = "/:path"
+  to = "/:path/index.html"
+  status = 404
+
+# Redirect old URLs if needed (uncomment and modify as needed)
+# [[redirects]]
+#   from = "/old-page"
+#   to = "/index.html"
+#   status = 301
+
+# Custom headers for better SEO and performance
+[[headers]]
+  for = "/*"
+  
+  [headers.values]
+    # Cache static assets
+    Cache-Control = "public, max-age=3600"
+    # Security headers
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Specific cache rules for different file types
+[[headers]]
+  for = "/*.{js,css,woff,woff2,eot,ttf,otf}"
+  
+  [headers.values]
+    # Long cache for static assets with content hash
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  
+  [headers.values]
+    # Cache images for longer periods
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/*.html"
+  
+  [headers.values]
+    # Don't cache HTML files so updates are seen immediately
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Context-specific configurations
+[context.production]
+  # Production environment settings
+  environment = { CONTEXT = "production" }
+
+[context.deploy-preview]
+  # Deploy preview environment settings
+  environment = { CONTEXT = "deploy-preview" }
+
+[context.branch-deploy]
+  # Branch deploy environment settings
+  environment = { CONTEXT = "branch-deploy" }

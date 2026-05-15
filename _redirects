@@ -1,0 +1,14 @@
+# Netlify Redirects Configuration
+# This file handles URL redirects and rewrites for the DC Canopy website
+
+# SPA routing - send 404s to index.html
+/* /index.html 200
+
+# Redirect www to non-www
+https://www.dccanopy.ie/* https://dccanopy.ie/:splat 301
+
+# Redirect old portfolio URLs if needed
+# /old-page /new-page 301
+
+# Force HTTPS (optional - Netlify does this automatically)
+# http://dccanopy.ie/* https://dccanopy.ie/:splat 301

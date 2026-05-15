@@ -1,0 +1,13 @@
+{
+  "build": {
+    "environment": {},
+    "functions": "functions"
+  },
+  "dev": {
+    "autoLaunch": false,
+    "framework": "static"
+  },
+  "edge": {},
+  "redirects": [],
+  "headers": []
+}
